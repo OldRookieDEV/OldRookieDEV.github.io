@@ -1,0 +1,100 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+.header {
+    width: 100%;
+    height: 500px;
+    background-color: pink;
+    display: flex;
+}
+
+.header .header-logo {
+    color: #fff;
+    margin: 100px auto 0 auto;
+}
+
+.container {
+    left: 0;
+    top: 450px;
+    position: absolute;
+    width: 100%;
+    display: flex;
+    background-color: #fff;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.3);
+    min-height: 100%;
+    flex-direction: column;
+    padding-bottom: 100px;
+}
+
+.container .navbar-container {
+    background-color: #fff;
+    width: max-content;
+    align-self: flex-start;
+    margin: 50px auto;
+}
+
+.container .navbar-container .navbar-wrapper {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    background-color: #fff;
+}
+
+.container .navbar-container .navbar-wrapper .navbar-item a {
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 1rem;
+    text-decoration: none;
+    margin: 5px 30px;
+    display: flex;
+}
+
+.container .navbar-container .navbar-wrapper .navbar-item.active {
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 15px;
+}
+.container .navbar-container .navbar-wrapper .navbar-item.active a {
+    color: #fff;
+}
+
+.container .navbar-container .navbar-wrapper .navbar-item:not(:last-child) {
+    margin-right: 100px;
+}
+
+.container .content-container {
+    background-color: #fff;
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.left {
+    align-self: flex-start;
+    justify-content: flex-start;
+}
+.right {
+    align-self: flex-end;
+    justify-content: flex-end;
+}
+
+.container .content-row {
+    width: 80%;
+    height: max-content;
+    min-height: 300px;
+    background-color: yellow;
+    display: flex;
+    align-items: center;
+}
+
+.container .content-row:not(:last-child) {
+    margin-bottom: 30px;
+}
