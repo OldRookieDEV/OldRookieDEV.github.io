@@ -113,7 +113,7 @@ body {
 }
 
 .container .content-row.bg1 {
-    background-image: url("./assets/bg1.png");
+    background-image: url("https://raw.githubusercontent.com/OldRookieDEV/OldRookieDEV.github.io/master/assets/bg1.png");
     background-size: cover;
     width: 1500px;
     height: 800px;
@@ -124,7 +124,7 @@ body {
 }
 
 .container .content-row.bg2 {
-    background-image: url("./assets/bg2.png");
+    background-image: url("https://raw.githubusercontent.com/OldRookieDEV/OldRookieDEV.github.io/master/assets/bg2.png");
     background-size: cover;
     width: 1260px;
     height: 650px;
@@ -134,7 +134,7 @@ body {
 }
 
 .container .content-row.bg3 {
-    background-image: url("./assets/bg3.png");
+    background-image: url("https://raw.githubusercontent.com/OldRookieDEV/OldRookieDEV.github.io/master/assets/bg3.png");
     background-size: cover;
     width: 1500px;
     height: 465px;
@@ -144,7 +144,7 @@ body {
 }
 
 .container .content-row.bg4 {
-    background-image: url("./assets/bg4.png");
+    background-image: url("https://raw.githubusercontent.com/OldRookieDEV/OldRookieDEV.github.io/master/assets/bg4.png");
     background-size: cover;
     height: 600px;
     widows: 1300px;
