@@ -95,6 +95,15 @@ body {
     flex-direction: column;
 }
 
+.content-row.videos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* align-items: center; */
+    /* min-height: 1500px; */
+}
+
 .container .content-title {
     align-self: center;
     justify-self: center;
