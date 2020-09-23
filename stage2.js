@@ -23,197 +23,230 @@ var GameScene = new Phaser.Class({
             frameWidth: 221.5,
             frameHeight: 349,
         });
+
         this.load.image("arrow-left", "./assets/arrow-left.png");
         this.load.image("arrow-right", "./assets/arrow-right.png");
         this.load.image("circle", "./assets/circle.png");
-        this.load.image("sky", "./assets/stage1/sky.png");
-        this.load.image("key", "./assets/stage1/key.png");
-        // this.load.image("ground", "./assets/stage1/ground.2.png");
 
+        // 하늘 배경
+        this.load.image("sky", "./assets/stage2/sky.png");
+
+        // 선인장
         this.load.atlas(
-            "sheet",
-            "./assets/stage1/ground-texture.png",
-            "./assets/stage1/ground-data.json"
+            "catuses",
+            "./assets/stage2/catus-texture.png",
+            "./assets/stage2/catus-data.json"
         );
 
-        this.load.json("ground-shape", "./assets/stage1/ground-shape.json");
+        // 구름
+        this.load.atlas(
+            "clouds",
+            "./assets/stage2/cloud-texture.png",
+            "./assets/stage2/cloud-data.json"
+        );
 
-        this.load.image("bushes1", "./assets/stage1/bushes1.png");
-        this.load.image("bushes2", "./assets/stage1/bushes2.png");
-        this.load.image("bushes3", "./assets/stage1/bushes3.png");
-        this.load.image("bushes4", "./assets/stage1/bushes4.png");
-        this.load.image("small-tree", "./assets/stage1/small_tree.png");
-        this.load.image("big-tree", "./assets/stage1/big_tree.png");
-        this.load.image("cloud1", "./assets/stage1/cloud1.png");
-        this.load.image("cloud2", "./assets/stage1/cloud2.png");
-        this.load.image("cloud3", "./assets/stage1/cloud3.png");
-        this.load.image("cloud4", "./assets/stage1/cloud4.png");
-        this.load.image("cloud5", "./assets/stage1/cloud5.png");
+        //캠프
+        this.load.atlas(
+            "camps",
+            "./assets/stage2/camp-texture.png",
+            "./assets/stage2/camp-data.json"
+        );
 
-        this.load.image("pad1", "./assets/stage1/pad1.png");
-        this.load.image("pad2", "./assets/stage1/pad2.png");
-        this.load.image("pad3", "./assets/stage1/pad3.png");
-        this.load.image("pad4", "./assets/stage1/pad4.png");
-        this.load.image("pad5", "./assets/stage1/pad5.png");
+        // 문
+        this.load.image("gate", "./assets/stage2/gate.png");
+        this.load.image("key", "./assets/stage2/key/key.png");
+        this.load.image("key-bg", "./assets/stage2/key/key-bg.png");
+        this.load.image(
+            "main-raindrop",
+            "./assets/stage2/raindrop/main-raindrop.png"
+        );
 
-        this.load.image("raindrop", "./assets/stage1/pink_bubble.png");
-        this.load.image("gate", "./assets/stage1/gate.png");
+        // 바닥
+        this.load.image("ground-bottom", "./assets/stage2/ground-bottom.png");
+        this.load.image("ground-ceiling", "./assets/stage2/ground-ceiling.png");
+
+        // 물방울
+
         this.load.image("raindrop-bg", "./assets/raindrop-bg.png");
+        this.load.image("raindrop", "./assets/stage2/raindrop/raindrop.png");
+
+        // shapes
+        this.load.json("shapes", "./assets/stage2/shapes.json");
     },
 
     create: function () {
-        this.add.image(0, 0, "sky").setScale(2);
-        this.add.image(800, 600, "bushes1").setScale(1);
-        this.add.image(2250, 650, "bushes3").setScale(1);
-        this.add.image(3100, 750, "bushes2").setScale(1);
-        this.add.image(4100, 650, "bushes4").setScale(1);
-        this.add.image(900, 680, "small-tree").setScale(1);
-
-        this.add.image(800, 100, "cloud1").setScale(1);
-        this.add.image(400, 400, "cloud1").setScale(1);
-        this.add.image(1300, 200, "cloud5").setScale(1);
-        this.add.image(1600, 500, "cloud3").setScale(1);
-        this.add.image(2250, 200, "cloud3").setScale(1);
-        this.add.image(3100, 300, "cloud2").setScale(1);
-        this.add.image(1850, 300, "cloud3").setScale(1);
-        this.add.image(1400, 200, "cloud2").setScale(1);
-        this.add.image(4100, 500, "cloud4").setScale(1);
-        this.add.image(5000, 600, "cloud5").setScale(1);
-
-        this.cameras.main.setBounds(0, -100, 4900, 1100);
-        this.matter.world.setBounds(0, -100, 4900, 1100);
-
+        // 월드 , 카메라 설정
+        this.cameras.main.setBounds(0, -100, 6650, 2000);
+        this.matter.world.setBounds(0, -100, 6650, 2000);
         this.cameras.main.setBackgroundColor("#fff");
 
-        let groundShape = this.cache.json.get("ground-shape");
-        let ground = this.matter.add
-            .sprite(0, 0, "sheet", "ground", {
-                shape: groundShape.ground,
-            })
-            .setScale(2.8)
-            .setStatic(true);
-        ground.setPosition(2400, 930 + ground.centerOfMass.y);
-        this.add.image(3560, 790, "raindrop-bg");
-        this.matter.add
-            .image(3560, 790, "raindrop", null, {
-                label: "main-raindrop",
-            })
-            .setScale(1)
-            .setStatic(true);
+        // 이미지 추가
+        let shape = this.cache.json.get("shapes");
+
+        this.add.image(3200, 1000, "sky").setScale(2.5);
+
+        // 캠프
+        this.add.sprite(800, 650, "camps", "camp1.png").setScale(1);
+        this.add.sprite(2500, 600, "camps", "camp3.png").setScale(1);
+        this.add.sprite(5100, 800, "camps", "camp2.png").setScale(1);
+
+        // 구름
+        this.add.sprite(800, 200, "clouds", "cloud1.png");
+        this.add.sprite(1100, 450, "clouds", "cloud2.png");
+        this.add.sprite(1600, 300, "clouds", "cloud3.png");
+        this.add.sprite(2000, 250, "clouds", "cloud4.png");
+        this.add.sprite(2200, 150, "clouds", "cloud1.png");
+        this.add.sprite(2700, 100, "clouds", "cloud2.png");
+        this.add.sprite(5800, 200, "clouds", "cloud4.png");
+        this.add.sprite(6200, 450, "clouds", "cloud5.png");
+        this.add.sprite(4900, 300, "clouds", "cloud6.png");
+        this.add.sprite(6600, 250, "clouds", "cloud7.png");
+        this.add.sprite(5400, 150, "clouds", "cloud8.png");
+        this.add.sprite(5600, 100, "clouds", "cloud4.png");
 
         let gate = this.matter.add
-            .image(3560, 790, "gate", null, {
+            .image(5000, 1600, "gate", null, {
+                shape: shape.gate,
                 label: "gate",
             })
-            .setScale(0.8)
             .setStatic(true);
-
-        this.add.image(3400, 270, "big-tree").setScale(0.7);
-
-        let pad1 = this.matter.add
-            .image(3350, 780, "pad1", null, {
-                shape: groundShape.pad1,
-            })
-            .setStatic(true);
-        let pad2 = this.matter.add
-            .image(3430, 690, "pad2", null, {
-                shape: groundShape.pad2,
-            })
-            .setStatic(true);
-        let pad3 = this.matter.add
-            .image(3620, 630, "pad3", null, {
-                shape: groundShape.pad3,
-            })
-            .setStatic(true);
-        let pad4 = this.matter.add
-            .image(3770, 520, "pad4", null, {
-                shape: groundShape.pad4,
-            })
-            .setStatic(true);
-        let pad5 = this.matter.add
-            .image(3350, 450, "pad5", null, {
-                shape: groundShape.pad5,
-            })
-            .setStatic(true);
-
+        this.add.image(5700, 1550, "raindrop-bg");
         this.matter.add
-            .image(3000, 200, "key", null, {
+            .image(5700, 1550, "main-raindrop", null, {
+                shape: shape.mainRaindrop,
+                label: "main-raindrop",
+            })
+            .setStatic(true);
+
+        this.add.image(3500, 400, "key-bg");
+        this.matter.add
+            .image(3500, 400, "key", null, {
+                shape: shape.key,
                 label: "key",
             })
             .setStatic(true);
 
-        let raindrop1 = this.matter.add
-            .image(550, 700, "raindrop", null, {
-                label: "raindrop",
+        let groundBottom = this.matter.add
+            .sprite(3200, 1400, "ground-bottom", null, {
+                shape: shape.groundBottom,
             })
-            .setScale(0.6)
+            .setScale(2.5)
+            .setStatic(true);
+
+        let groundCeiling = this.matter.add
+            .sprite(3850, 450, "ground-ceiling", null, {
+                shape: shape.groundCeiling,
+            })
+            .setScale(2.5)
+            .setStatic(true);
+
+        // 선인장
+        this.add.sprite(1350, 600, "catuses", "catus1.png").setScale(0.6);
+        this.add.sprite(1230, 640, "catuses", "catus2.png").setScale(0.6);
+        this.add.sprite(3300, 1710, "catuses", "catus3.png").setScale(0.6);
+        this.add.sprite(3400, 1760, "catuses", "catus4.png").setScale(0.6);
+
+        this.matter.add
+            .image(900, 660, "raindrop", null, {
+                label: "raindrop",
+                shape: shape.raindrop,
+            })
+            .setScale(0.7)
             .setStatic(true);
         this.matter.add
-            .image(650, 680, "raindrop", null, {
+            .image(1050, 630, "raindrop", null, {
+                shape: shape.raindrop,
                 label: "raindrop",
             })
-            .setScale(0.6)
+            .setScale(0.7)
             .setStatic(true);
         this.matter.add
-            .image(750, 640, "raindrop", null, {
+            .image(1150, 550, "raindrop", null, {
+                shape: shape.raindrop,
                 label: "raindrop",
             })
-            .setScale(0.6)
+            .setScale(0.7)
             .setStatic(true);
         this.matter.add
-            .image(850, 580, "raindrop", null, {
+            .image(1300, 480, "raindrop", null, {
+                shape: shape.raindrop,
                 label: "raindrop",
             })
-            .setScale(0.6)
+            .setScale(0.7)
             .setStatic(true);
         this.matter.add
-            .image(950, 540, "raindrop", null, {
+            .image(1450, 450, "raindrop", null, {
+                shape: shape.raindrop,
                 label: "raindrop",
             })
-            .setScale(0.6)
-            .setStatic(true);
-        this.matter.add
-            .image(1050, 520, "raindrop", null, {
-                label: "raindrop",
-            })
-            .setScale(0.6)
-            .setStatic(true);
-        this.matter.add
-            .image(3430, 600, "raindrop", null, {
-                label: "raindrop",
-            })
-            .setScale(0.6)
+            .setScale(0.7)
             .setStatic(true);
 
         this.matter.add
-            .image(3550, 500, "raindrop", null, {
+            .image(3750, 1650, "raindrop", null, {
+                shape: shape.raindrop,
                 label: "raindrop",
             })
-            .setScale(0.6)
+            .setScale(0.7)
+            .setStatic(true);
+        this.matter.add
+            .image(3900, 1600, "raindrop", null, {
+                shape: shape.raindrop,
+                label: "raindrop",
+            })
+            .setScale(0.7)
+            .setStatic(true);
+        this.matter.add
+            .image(4050, 1580, "raindrop", null, {
+                shape: shape.raindrop,
+                label: "raindrop",
+            })
+            .setScale(0.7)
+            .setStatic(true);
+        this.matter.add
+            .image(4200, 1550, "raindrop", null, {
+                shape: shape.raindrop,
+                label: "raindrop",
+            })
+            .setScale(0.7)
             .setStatic(true);
 
-        var player = this.matter.add.sprite(50, 800, "player-idle");
-        player.setBounce(0.15);
-        player.setScale(0.4);
-        this.cameras.main.startFollow(player, true, 0.05, 0.05);
+        // 오브젝트 충돌 처리
 
         this.matter.world.on("collisionstart", function (event, bodyA, bodyB) {
-            if (bodyA.label === "raindrop" || bodyB.label === "raindrop") {
-                const body = bodyA.label === "raindrop" ? bodyA : bodyB;
+            if (
+                bodyA.parent.label === "raindrop" ||
+                bodyB.parent.label === "raindrop"
+            ) {
+                const body =
+                    bodyA.parent.label === "raindrop"
+                        ? bodyA.parent
+                        : bodyB.parent;
                 body.gameObject.destroy();
-            } else if (bodyA.label === "key" || bodyB.label === "key") {
-                const body = bodyA.label === "key" ? bodyA : bodyB;
+            } else if (
+                bodyA.parent.label === "key" ||
+                bodyB.parent.label === "key"
+            ) {
+                const body =
+                    bodyA.parent.label === "key" ? bodyA.parent : bodyB.parent;
                 body.gameObject.destroy();
                 gate.destroy();
             } else if (
-                bodyA.label === "main-raindrop" ||
-                bodyB.label === "main-raindrop"
+                bodyA.parent.label === "main-raindrop" ||
+                bodyB.parent.label === "main-raindrop"
             ) {
-                const body = bodyA.label === "main-raindrop" ? bodyA : bodyB;
-                location.href = "./stage2.html";
+                location.href = "./stage3.html";
             }
         });
 
+        // 유저 설정
+        var player = this.matter.add.sprite(50, 600, "player-idle");
+        player.setBounce(0.15);
+        player.setScale(0.4);
+        this.cameras.main.startFollow(player, true, 0.05, 0.05);
+        this.player = player;
+
+        // 유저 애니메이션
         this.anims.create({
             key: "idle",
             frames: this.anims.generateFrameNumbers("player-idle", {
@@ -244,9 +277,9 @@ var GameScene = new Phaser.Class({
             repeat: -1,
         });
 
-        this.player = player;
-
         player.anims.play("idle", true);
+
+        // 버튼
         this.cursors = this.input.keyboard.createCursorKeys();
 
         this.arrowLeft = this.add
@@ -281,8 +314,8 @@ var GameScene = new Phaser.Class({
             .setInteractive();
         jumpButton.on("pointerdown", () => {
             if (
-                this.player.body.velocity.y <= 1 &&
-                this.player.body.velocity.y >= -1
+                this.player.body.velocity.y < 15 &&
+                this.player.body.velocity.y > -15
             ) {
                 this.cursors.up.isDown = true;
                 this.player.isJump = true;
@@ -307,14 +340,14 @@ var GameScene = new Phaser.Class({
             }
             player.anims.play("jump", true);
         } else if (cursors.left.isDown) {
-            player.setVelocityX(-5);
+            player.setVelocityX(-6);
 
             player.flipX = true;
             if (!cursors.up.isDown) {
                 player.anims.play("move", true);
             }
         } else if (cursors.right.isDown) {
-            player.setVelocityX(5);
+            player.setVelocityX(6);
             player.flipX = false;
             if (!cursors.up.isDown) {
                 player.anims.play("move", true);

@@ -1,0 +1,83 @@
+{
+	"textures": [
+		{
+			"image": "camp-texture.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 957,
+				"h": 1259
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "camp2.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 795,
+						"h": 754
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 795,
+						"h": 754
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 795,
+						"h": 754
+					}
+				},
+				{
+					"filename": "camp3.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 481,
+						"h": 501
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 481,
+						"h": 501
+					},
+					"frame": {
+						"x": 1,
+						"y": 757,
+						"w": 481,
+						"h": 501
+					}
+				},
+				{
+					"filename": "camp1.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 472,
+						"h": 453
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 472,
+						"h": 453
+					},
+					"frame": {
+						"x": 484,
+						"y": 757,
+						"w": 472,
+						"h": 453
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:8f6d6c430a06e537cca4a87d20694cc5:ad8078f9f4600873dc7e146d6fffe454:0e119667ab00edce7ef36292cf066be8$"
+	}
+}

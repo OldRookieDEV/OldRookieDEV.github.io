@@ -1,0 +1,104 @@
+{
+	"textures": [
+		{
+			"image": "catus-texture.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 330,
+				"h": 719
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "catus2.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 168,
+						"h": 151
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 168,
+						"h": 151
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 168,
+						"h": 151
+					}
+				},
+				{
+					"filename": "catus4.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 158,
+						"h": 167
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 158,
+						"h": 167
+					},
+					"frame": {
+						"x": 171,
+						"y": 1,
+						"w": 158,
+						"h": 167
+					}
+				},
+				{
+					"filename": "catus1.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 269,
+						"h": 242
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 269,
+						"h": 242
+					},
+					"frame": {
+						"x": 1,
+						"y": 170,
+						"w": 269,
+						"h": 242
+					}
+				},
+				{
+					"filename": "catus3.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 261,
+						"h": 304
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 261,
+						"h": 304
+					},
+					"frame": {
+						"x": 1,
+						"y": 414,
+						"w": 261,
+						"h": 304
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:8db2b00185b7aa90c8ebb04e040136c2:480374bf03c312357502c9874ac4c593:2ab66c4386a19dd8d797667378301415$"
+	}
+}
