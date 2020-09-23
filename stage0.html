@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+
+        <style>
+            html,
+            body {
+                padding: 0;
+                margin: 0;
+            }
+
+            .background {
+                display: flex;
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+            }
+            .background img {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                transition: 2s;
+            }
+            .background img.active {
+                opacity: 1;
+                transition: 2s;
+            }
+
+            .content {
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                position: absolute;
+                z-index: 10;
+                display: flex;
+                justify-content: center;
+                align-items: flex-end;
+            }
+
+            .content #touch {
+                width: 200px;
+                z-index: 100;
+            }
+            .content #hand {
+                width: 500px;
+                position: absolute;
+                bottom: -30px;
+                z-index: 11;
+            }
+            .content #light {
+                width: 600px;
+                position: absolute;
+                bottom: -150px;
+                z-index: 12;
+            }
+            .content #logo {
+                width: 600px;
+                position: absolute;
+                top: 30px;
+                z-index: 13;
+            }
+            .content #raindrop {
+                width: 150px;
+                position: absolute;
+                bottom: 20px;
+                z-index: 13;
+                animation: shake-logo ease-in-out 2s infinite;
+            }
+            @keyframes shake-logo {
+                0% {
+                    bottom: 20px;
+                }
+                50% {
+                    bottom: 30px;
+                }
+                100% {
+                    bottom: 20px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="background">
+            <img data-seq="1" src="/assets/stage0/yellow.png" alt="yello-bg" />
+            <img data-seq="2" src="/assets/stage0/blue.png" alt="yello-bg" />
+            <img data-seq="3" src="/assets/stage0/green.png" alt="yello-bg" />
+            <img data-seq="4" src="/assets/stage0/purple.png" alt="yello-bg" />
+            <img data-seq="5" src="/assets/stage0/pink.png" alt="yello-bg" />
+        </div>
+        <div class="content">
+            <img
+                src="/assets/stage0/touch.png"
+                alt=""
+                id="touch"
+                onclick="start()"
+            />
+            <img src="/assets/stage0/light.png" alt="" id="light" />
+            <img src="/assets/stage0/raindrop.png" alt="" id="raindrop" />
+            <img src="/assets/stage0/logo.png" alt="" id="logo" />
+            <img src="/assets/stage0/hand.png" alt="" id="hand" />
+        </div>
+    </body>
+    <script>
+        let seq = 1;
+        const colorChange = () => {
+            const active = document.querySelector(".background .active");
+            if (active) {
+                active.classList.remove("active");
+            }
+            const img = document.querySelector(
+                `.background img[data-seq="${seq}"]`
+            );
+            img.classList.add("active");
+
+            if (seq === 5) {
+                seq = 1;
+            } else {
+                seq++;
+            }
+        };
+        const start = () => {
+            location.href = "/stage1.html";
+        };
+        document.addEventListener("DOMContentLoaded", () => {
+            colorChange();
+            window.setInterval(colorChange, 5000);
+        });
+    </script>
+</html>
