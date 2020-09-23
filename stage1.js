@@ -27,7 +27,17 @@ var GameScene = new Phaser.Class({
         this.load.image("arrow-right", "./assets/arrow-right.png");
         this.load.image("circle", "./assets/circle.png");
         this.load.image("sky", "./assets/stage1/sky.png");
-        this.load.image("ground", "./assets/stage1/ground.2.png");
+        this.load.image("key", "./assets/stage1/key.png");
+        // this.load.image("ground", "./assets/stage1/ground.2.png");
+
+        this.load.atlas(
+            "sheet",
+            "./assets/stage1/ground-texture.png",
+            "./assets/stage1/ground-data.json"
+        );
+
+        this.load.json("ground-shape", "./assets/stage1/ground-shape.json");
+
         this.load.image("bushes1", "./assets/stage1/bushes1.png");
         this.load.image("bushes2", "./assets/stage1/bushes2.png");
         this.load.image("bushes3", "./assets/stage1/bushes3.png");
@@ -47,15 +57,17 @@ var GameScene = new Phaser.Class({
         this.load.image("pad5", "./assets/stage1/pad5.png");
 
         this.load.image("raindrop", "./assets/stage1/pink_bubble.png");
+        this.load.image("gate", "./assets/stage1/gate.png");
+        this.load.image("raindrop-bg", "./assets/raindrop-bg.png");
     },
 
     create: function () {
         this.add.image(0, 0, "sky").setScale(2);
-        this.add.image(800, 550, "bushes1").setScale(1);
-        this.add.image(2250, 600, "bushes3").setScale(1);
-        this.add.image(3100, 700, "bushes2").setScale(1);
-        this.add.image(4100, 600, "bushes4").setScale(1);
-        this.add.image(1250, 680, "small-tree").setScale(0.9);
+        this.add.image(800, 600, "bushes1").setScale(1);
+        this.add.image(2250, 650, "bushes3").setScale(1);
+        this.add.image(3100, 750, "bushes2").setScale(1);
+        this.add.image(4100, 650, "bushes4").setScale(1);
+        this.add.image(900, 680, "small-tree").setScale(1);
 
         this.add.image(800, 100, "cloud1").setScale(1);
         this.add.image(400, 400, "cloud1").setScale(1);
@@ -68,33 +80,139 @@ var GameScene = new Phaser.Class({
         this.add.image(4100, 500, "cloud4").setScale(1);
         this.add.image(5000, 600, "cloud5").setScale(1);
 
-        var platforms = this.physics.add.staticGroup();
-        platforms.create(2600, 950, "ground").setScale(1).refreshBody();
-        this.add.image(3400, 200, "big-tree").setScale(0.7);
+        this.cameras.main.setBounds(0, -100, 4900, 1100);
+        this.matter.world.setBounds(0, -100, 4900, 1100);
 
-        let pad1 = this.add.image(3350, 730, "pad1");
-        let pad2 = this.add.image(3430, 640, "pad2");
-        let pad3 = this.add.image(3550, 550, "pad3");
-        let pad4 = this.add.image(3750, 480, "pad4");
-        let pad5 = this.add.image(3350, 400, "pad5");
+        this.cameras.main.setBackgroundColor("#fff");
 
-        this.raindrop1 = this.add.image(550, 700, "raindrop").setScale(0.6);
-        this.raindrop1.originY = 700;
-        this.raindrop2 = this.add.image(650, 680, "raindrop").setScale(0.6);
-        this.raindrop3 = this.add.image(750, 640, "raindrop").setScale(0.6);
-        this.raindrop4 = this.add.image(850, 580, "raindrop").setScale(0.6);
-        this.raindrop5 = this.add.image(950, 540, "raindrop").setScale(0.6);
-        this.raindrop6 = this.add.image(1050, 520, "raindrop").setScale(0.6);
-        this.raindrop7 = this.add.image(3430, 580, "raindrop").setScale(0.6);
-        this.raindrop8 = this.add.image(3550, 480, "raindrop").setScale(0.6);
-        this.raindrop_distance = 0;
+        let groundShape = this.cache.json.get("ground-shape");
+        let ground = this.matter.add
+            .sprite(0, 0, "sheet", "ground", {
+                shape: groundShape.ground,
+            })
+            .setScale(2.8)
+            .setStatic(true);
+        ground.setPosition(2400, 930 + ground.centerOfMass.y);
+        this.add.image(3560, 790, "raindrop-bg");
+        this.matter.add
+            .image(3560, 790, "raindrop", null, {
+                label: "main-raindrop",
+            })
+            .setScale(1)
+            .setStatic(true);
 
-        var player = this.physics.add.sprite(50, 800, "player-idle");
+        let gate = this.matter.add
+            .image(3560, 790, "gate", null, {
+                label: "gate",
+            })
+            .setScale(0.8)
+            .setStatic(true);
+
+        this.add.image(3400, 270, "big-tree").setScale(0.7);
+
+        let pad1 = this.matter.add
+            .image(3350, 780, "pad1", null, {
+                shape: groundShape.pad1,
+            })
+            .setStatic(true);
+        let pad2 = this.matter.add
+            .image(3430, 690, "pad2", null, {
+                shape: groundShape.pad2,
+            })
+            .setStatic(true);
+        let pad3 = this.matter.add
+            .image(3620, 630, "pad3", null, {
+                shape: groundShape.pad3,
+            })
+            .setStatic(true);
+        let pad4 = this.matter.add
+            .image(3770, 520, "pad4", null, {
+                shape: groundShape.pad4,
+            })
+            .setStatic(true);
+        let pad5 = this.matter.add
+            .image(3350, 450, "pad5", null, {
+                shape: groundShape.pad5,
+            })
+            .setStatic(true);
+
+        this.matter.add
+            .image(3000, 200, "key", null, {
+                label: "key",
+            })
+            .setStatic(true);
+
+        let raindrop1 = this.matter.add
+            .image(550, 700, "raindrop", null, {
+                label: "raindrop",
+            })
+            .setScale(0.6)
+            .setStatic(true);
+        this.matter.add
+            .image(650, 680, "raindrop", null, {
+                label: "raindrop",
+            })
+            .setScale(0.6)
+            .setStatic(true);
+        this.matter.add
+            .image(750, 640, "raindrop", null, {
+                label: "raindrop",
+            })
+            .setScale(0.6)
+            .setStatic(true);
+        this.matter.add
+            .image(850, 580, "raindrop", null, {
+                label: "raindrop",
+            })
+            .setScale(0.6)
+            .setStatic(true);
+        this.matter.add
+            .image(950, 540, "raindrop", null, {
+                label: "raindrop",
+            })
+            .setScale(0.6)
+            .setStatic(true);
+        this.matter.add
+            .image(1050, 520, "raindrop", null, {
+                label: "raindrop",
+            })
+            .setScale(0.6)
+            .setStatic(true);
+        this.matter.add
+            .image(3430, 600, "raindrop", null, {
+                label: "raindrop",
+            })
+            .setScale(0.6)
+            .setStatic(true);
+
+        this.matter.add
+            .image(3550, 500, "raindrop", null, {
+                label: "raindrop",
+            })
+            .setScale(0.6)
+            .setStatic(true);
+
+        var player = this.matter.add.sprite(50, 800, "player-idle");
         player.setBounce(0.15);
         player.setScale(0.4);
-        player.setCollideWorldBounds(true);
+        this.cameras.main.startFollow(player, true, 0.05, 0.05);
 
-        // this.physics.add.collider(player, pad1 , pad2 , pad3 , pad4 , pad5);
+        this.matter.world.on("collisionstart", function (event, bodyA, bodyB) {
+            if (bodyA.label === "raindrop" || bodyB.label === "raindrop") {
+                const body = bodyA.label === "raindrop" ? bodyA : bodyB;
+                body.gameObject.destroy();
+            } else if (bodyA.label === "key" || bodyB.label === "key") {
+                const body = bodyA.label === "key" ? bodyA : bodyB;
+                body.gameObject.destroy();
+                gate.destroy();
+            } else if (
+                bodyA.label === "main-raindrop" ||
+                bodyB.label === "main-raindrop"
+            ) {
+                const body = bodyA.label === "main-raindrop" ? bodyA : bodyB;
+                alert("complete!");
+            }
+        });
 
         this.anims.create({
             key: "idle",
@@ -127,25 +245,19 @@ var GameScene = new Phaser.Class({
         });
 
         this.player = player;
-        // this.physics.add.collider(player, platforms);
 
         player.anims.play("idle", true);
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        this.cameras.main.setBounds(0, -100, 4900, 1100);
-        this.physics.world.setBounds(0, -100, 4900, 1100);
-        this.cameras.main.startFollow(player, true, 0.05, 0.05);
-        this.cameras.main.setBackgroundColor("#fff");
-
         this.arrowLeft = this.add
             .image(80, 510, "arrow-left")
-            .setScale(0.15)
+            .setScale(0.25)
             .setInteractive();
 
         this.arrowLeft.setScrollFactor(0);
         this.arrowRight = this.add
-            .image(180, 510, "arrow-right")
-            .setScale(0.15)
+            .image(250, 510, "arrow-right")
+            .setScale(0.25)
             .setInteractive();
         this.arrowRight.setScrollFactor(0);
 
@@ -165,55 +277,50 @@ var GameScene = new Phaser.Class({
 
         let jumpButton = this.add
             .image(1248 - 100, 510, "circle")
-            .setScale(0.3)
+            .setScale(0.5)
             .setInteractive();
         jumpButton.on("pointerdown", () => {
-            this.cursors.up.isDown = true;
-            this.player.body.touching.down = true;
+            if (
+                this.player.body.velocity.y <= 1 &&
+                this.player.body.velocity.y >= -1
+            ) {
+                this.cursors.up.isDown = true;
+                this.player.isJump = true;
+            }
         });
         jumpButton.on("pointerup", () => {
             this.cursors.up.isDown = false;
-            this.player.body.touching.down = false;
         });
         jumpButton.setScrollFactor(0);
-
-        // this.input.addPointer(3);
-        // Phaser.Actions.GridAlign(
-        //     [this.arrowLeft, this.arrowRight, jumpButton],
-        //     {
-        //         width: 3,
-        //     }
-        // );
-        // this.input.on("gameobjectdown", (pointer, gameObject) => {
-        //     console.log(gameObject);
-        // });
     },
 
     update: function () {
         var cursors = this.cursors;
         var player = this.player;
 
-        if (cursors.up.isDown && !player.isJump) {
-            player.setVelocityY(-100);
+        player.angle = 0;
+
+        if (cursors.up.isDown) {
+            if (player.isJump) {
+                player.setVelocityY(-10);
+                player.isJump = false;
+            }
+            player.anims.play("jump", true);
         } else if (cursors.left.isDown) {
-            player.setVelocityX(-150);
+            player.setVelocityX(-5);
 
             player.flipX = true;
             if (!cursors.up.isDown) {
                 player.anims.play("move", true);
             }
         } else if (cursors.right.isDown) {
-            player.setVelocityX(150);
+            player.setVelocityX(5);
             player.flipX = false;
             if (!cursors.up.isDown) {
                 player.anims.play("move", true);
             }
         } else {
             player.setVelocityX(0);
-            // player.anims.play("turn");
-            // player.setTexture("player-idle");
-
-            // player.anims.play("idle", true);
             if (player.anims.currentAnim.key !== "idle") {
                 if (player.isJump) {
                     player.anims.play("jump", true);
@@ -222,16 +329,6 @@ var GameScene = new Phaser.Class({
                 }
             }
         }
-        if (cursors.up.isDown && player.body.touching.down) {
-            player.setVelocityY(-330);
-            player.anims.play("jump", true);
-        }
-    },
-
-    collectStar: function (player, star) {
-        // star.disableBody(true, true);
-        // this.score += 10;
-        // this.scoreText.setText("Score: " + this.score);
     },
 });
 
@@ -245,9 +342,9 @@ var config = {
         height: 600,
     },
     physics: {
-        default: "arcade",
-        arcade: {
-            gravity: { y: 300 },
+        default: "matter",
+        matter: {
+            gravity: { y: 3 },
             debug: false,
         },
     },
