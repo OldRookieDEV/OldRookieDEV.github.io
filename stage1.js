@@ -210,7 +210,6 @@ var GameScene = new Phaser.Class({
                 bodyB.label === "main-raindrop"
             ) {
                 const body = bodyA.label === "main-raindrop" ? bodyA : bodyB;
-                alert("complete!");
             }
         });
 
@@ -277,7 +276,7 @@ var GameScene = new Phaser.Class({
 
         let jumpButton = this.add
             .image(1248 - 100, 510, "circle")
-            .setScale(0.5)
+            .setScale(0.8)
             .setInteractive();
         jumpButton.on("pointerdown", () => {
             if (
@@ -302,7 +301,7 @@ var GameScene = new Phaser.Class({
 
         if (cursors.up.isDown) {
             if (player.isJump) {
-                player.setVelocityY(-10);
+                player.setVelocityY(-15);
                 player.isJump = false;
             }
             player.anims.play("jump", true);
@@ -341,10 +340,14 @@ var config = {
         width: 1248,
         height: 600,
     },
+    // activePointers: 2,
+    input: {
+        activePointers: 3,
+    },
     physics: {
         default: "matter",
         matter: {
-            gravity: { y: 3 },
+            gravity: { y: 1.5 },
             debug: false,
         },
     },
