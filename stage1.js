@@ -194,17 +194,16 @@ var GameScene = new Phaser.Class({
         var player = this.player;
 
         if (cursors.up.isDown && !player.isJump) {
-            // player.setTexture("player-jump");
-            player.setVelocityY(-200);
+            player.setVelocityY(-100);
         } else if (cursors.left.isDown) {
-            player.setVelocityX(-600);
+            player.setVelocityX(-150);
 
             player.flipX = true;
             if (!cursors.up.isDown) {
                 player.anims.play("move", true);
             }
         } else if (cursors.right.isDown) {
-            player.setVelocityX(600);
+            player.setVelocityX(150);
             player.flipX = false;
             if (!cursors.up.isDown) {
                 player.anims.play("move", true);
