@@ -388,6 +388,7 @@ var config = {
             debug: false,
         },
     },
+    backgroundColor: "#fff",
     scene: GameScene,
 };
 

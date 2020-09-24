@@ -8,6 +8,7 @@ var GameScene = new Phaser.Class({
         this.cursors = null;
         this.score = 0;
         this.scoreText = null;
+        // this.cameras.main.setBackgroundColor("#fff");
     },
 
     preload: function () {
@@ -368,6 +369,7 @@ var config = {
             debug: false,
         },
     },
+    backgroundColor: "#fff",
     scene: GameScene,
 };
 
