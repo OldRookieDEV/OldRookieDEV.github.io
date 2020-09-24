@@ -57,6 +57,8 @@ var GameScene = new Phaser.Class({
         this.load.image("pad5", "./assets/stage1/pad5.png");
 
         this.load.image("raindrop", "./assets/stage1/pink_bubble.png");
+        this.load.image("drop", "./assets/stage_comm/raindrop.png");
+        this.load.json("drop-shape", "./assets/stage_comm/raindrop-shape.json");
         this.load.image("gate", "./assets/stage1/gate.png");
         this.load.image("raindrop-bg", "./assets/raindrop-bg.png");
     },
@@ -141,54 +143,63 @@ var GameScene = new Phaser.Class({
             })
             .setStatic(true);
 
+        let raindropShape = this.cache.json.get("drop-shape");
         let raindrop1 = this.matter.add
-            .image(550, 700, "raindrop", null, {
+            .image(550, 700, "drop", null, {
                 label: "raindrop",
+                shape: raindropShape.raindrop,
             })
-            .setScale(0.6)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
-            .image(650, 680, "raindrop", null, {
+            .image(650, 680, "drop", null, {
                 label: "raindrop",
+                shape: raindropShape.raindrop,
             })
-            .setScale(0.6)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
-            .image(750, 640, "raindrop", null, {
+            .image(750, 640, "drop", null, {
                 label: "raindrop",
+                shape: raindropShape.raindrop,
             })
-            .setScale(0.6)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
-            .image(850, 580, "raindrop", null, {
+            .image(850, 580, "drop", null, {
                 label: "raindrop",
+                shape: raindropShape.raindrop,
             })
-            .setScale(0.6)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
-            .image(950, 540, "raindrop", null, {
+            .image(950, 540, "drop", null, {
                 label: "raindrop",
+                shape: raindropShape.raindrop,
             })
-            .setScale(0.6)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
-            .image(1050, 520, "raindrop", null, {
+            .image(1050, 520, "drop", null, {
                 label: "raindrop",
+                shape: raindropShape.raindrop,
             })
-            .setScale(0.6)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
-            .image(3430, 600, "raindrop", null, {
+            .image(3430, 600, "drop", null, {
                 label: "raindrop",
+                shape: raindropShape.raindrop,
             })
-            .setScale(0.6)
+            .setScale(0.2)
             .setStatic(true);
 
         this.matter.add
-            .image(3550, 500, "raindrop", null, {
+            .image(3550, 500, "drop", null, {
                 label: "raindrop",
+                shape: raindropShape.raindrop,
             })
-            .setScale(0.6)
+            .setScale(0.2)
             .setStatic(true);
 
         var player = this.matter.add.sprite(50, 800, "player-idle");
@@ -197,8 +208,14 @@ var GameScene = new Phaser.Class({
         this.cameras.main.startFollow(player, true, 0.05, 0.05);
 
         this.matter.world.on("collisionstart", function (event, bodyA, bodyB) {
-            if (bodyA.label === "raindrop" || bodyB.label === "raindrop") {
-                const body = bodyA.label === "raindrop" ? bodyA : bodyB;
+            if (
+                bodyA.parent.label === "raindrop" ||
+                bodyB.parent.label === "raindrop"
+            ) {
+                const body =
+                    bodyA.parent.label === "raindrop"
+                        ? bodyA.parent
+                        : bodyB.parent;
                 body.gameObject.destroy();
             } else if (bodyA.label === "key" || bodyB.label === "key") {
                 const body = bodyA.label === "key" ? bodyA : bodyB;

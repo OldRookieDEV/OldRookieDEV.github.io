@@ -68,7 +68,11 @@ var GameScene = new Phaser.Class({
         // 물방울
 
         this.load.image("raindrop-bg", "./assets/raindrop-bg.png");
-        this.load.image("raindrop", "./assets/stage2/raindrop/raindrop.png");
+        this.load.image("raindrop", "./assets/stage_comm/raindrop.png");
+        this.load.json(
+            "raindrop-shape",
+            "./assets/stage_comm/raindrop-shape.json"
+        );
 
         // shapes
         this.load.json("shapes", "./assets/stage2/shapes.json");
@@ -146,69 +150,70 @@ var GameScene = new Phaser.Class({
         this.add.sprite(3300, 1710, "catuses", "catus3.png").setScale(0.6);
         this.add.sprite(3400, 1760, "catuses", "catus4.png").setScale(0.6);
 
+        let raindropShape = this.cache.json.get("raindrop-shape");
         this.matter.add
             .image(900, 660, "raindrop", null, {
                 label: "raindrop",
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
             })
-            .setScale(0.7)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
             .image(1050, 630, "raindrop", null, {
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
                 label: "raindrop",
             })
-            .setScale(0.7)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
             .image(1150, 550, "raindrop", null, {
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
                 label: "raindrop",
             })
-            .setScale(0.7)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
             .image(1300, 480, "raindrop", null, {
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
                 label: "raindrop",
             })
-            .setScale(0.7)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
             .image(1450, 450, "raindrop", null, {
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
                 label: "raindrop",
             })
-            .setScale(0.7)
+            .setScale(0.2)
             .setStatic(true);
 
         this.matter.add
             .image(3750, 1650, "raindrop", null, {
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
                 label: "raindrop",
             })
-            .setScale(0.7)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
             .image(3900, 1600, "raindrop", null, {
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
                 label: "raindrop",
             })
-            .setScale(0.7)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
             .image(4050, 1580, "raindrop", null, {
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
                 label: "raindrop",
             })
-            .setScale(0.7)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
             .image(4200, 1550, "raindrop", null, {
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
                 label: "raindrop",
             })
-            .setScale(0.7)
+            .setScale(0.2)
             .setStatic(true);
 
         // 오브젝트 충돌 처리

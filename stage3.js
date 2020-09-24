@@ -62,7 +62,11 @@ var GameScene = new Phaser.Class({
 
         // 물방울
         this.load.image("raindrop-bg", "./assets/raindrop-bg.png");
-        this.load.image("raindrop", "./assets/stage3/raindrop/raindrop.png");
+        this.load.image("raindrop", "./assets/stage_comm/raindrop.png");
+        this.load.json(
+            "raindrop-shape",
+            "./assets/stage_comm/raindrop-shape.json"
+        );
         this.load.image("clouds", "./assets/stage3/clouds.png");
 
         // shapes
@@ -119,76 +123,77 @@ var GameScene = new Phaser.Class({
             })
             .setStatic(true);
 
+        let raindropShape = this.cache.json.get("raindrop-shape");
         this.matter.add
             .image(900, 660, "raindrop", null, {
                 label: "raindrop",
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
             })
-            .setScale(0.7)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
             .image(1050, 730, "raindrop", null, {
                 label: "raindrop",
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
             })
-            .setScale(0.7)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
             .image(1200, 780, "raindrop", null, {
                 label: "raindrop",
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
             })
-            .setScale(0.7)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
             .image(1350, 820, "raindrop", null, {
                 label: "raindrop",
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
             })
-            .setScale(0.7)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
             .image(1500, 700, "raindrop", null, {
                 label: "raindrop",
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
             })
-            .setScale(0.7)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
             .image(1650, 660, "raindrop", null, {
                 label: "raindrop",
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
             })
-            .setScale(0.7)
+            .setScale(0.2)
             .setStatic(true);
 
         this.matter.add
             .image(4900, 1000, "raindrop", null, {
                 label: "raindrop",
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
             })
-            .setScale(0.7)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
             .image(5050, 1050, "raindrop", null, {
                 label: "raindrop",
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
             })
-            .setScale(0.7)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
             .image(5200, 1100, "raindrop", null, {
                 label: "raindrop",
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
             })
-            .setScale(0.7)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
             .image(5350, 1150, "raindrop", null, {
                 label: "raindrop",
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
             })
-            .setScale(0.7)
+            .setScale(0.2)
             .setStatic(true);
 
         this.add.sprite(1650, 900, "grass", "grass1.png");

@@ -56,7 +56,11 @@ var GameScene = new Phaser.Class({
         );
 
         this.load.image("raindrop-bg", "./assets/raindrop-bg.png");
-        this.load.image("raindrop", "./assets/stage4/raindrop/raindrop.png");
+        this.load.image("raindrop", "./assets/stage_comm/raindrop.png");
+        this.load.json(
+            "raindrop-shape",
+            "./assets/stage_comm/raindrop-shape.json"
+        );
         this.load.image(
             "main-raindrop",
             "./assets/stage4/raindrop/mainRaindrop.png"
@@ -145,11 +149,11 @@ var GameScene = new Phaser.Class({
             .setStatic(true);
 
         this.matter.add
-            .image(5100, 930, "pad3", null, { shape: shape.pad3 })
+            .image(5200, 930, "pad3", null, { shape: shape.pad3 })
             .setScale(1.2)
             .setStatic(true);
         this.matter.add
-            .image(4800, 1050, "pad1", null, { shape: shape.pad1 })
+            .image(4900, 1050, "pad2", null, { shape: shape.pad2 })
             .setScale(1.1)
             .setStatic(true);
         this.matter.add
@@ -193,76 +197,77 @@ var GameScene = new Phaser.Class({
             })
             .setStatic(true);
 
+        let raindropShape = this.cache.json.get("raindrop-shape");
         this.matter.add
             .image(1500, 1300, "raindrop", null, {
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
                 label: "raindrop",
             })
-            .setScale(0.8)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
             .image(1650, 1300, "raindrop", null, {
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
                 label: "raindrop",
             })
-            .setScale(0.8)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
             .image(1800, 1300, "raindrop", null, {
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
                 label: "raindrop",
             })
-            .setScale(0.8)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
             .image(1950, 1200, "raindrop", null, {
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
                 label: "raindrop",
             })
-            .setScale(0.8)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
             .image(2100, 1100, "raindrop", null, {
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
                 label: "raindrop",
             })
-            .setScale(0.8)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
             .image(2250, 1050, "raindrop", null, {
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
                 label: "raindrop",
             })
-            .setScale(0.8)
+            .setScale(0.2)
             .setStatic(true);
 
         this.matter.add
             .image(4600, 1000, "raindrop", null, {
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
                 label: "raindrop",
             })
-            .setScale(0.8)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
             .image(4700, 950, "raindrop", null, {
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
                 label: "raindrop",
             })
-            .setScale(0.8)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
             .image(4800, 900, "raindrop", null, {
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
                 label: "raindrop",
             })
-            .setScale(0.8)
+            .setScale(0.2)
             .setStatic(true);
         this.matter.add
             .image(4900, 850, "raindrop", null, {
-                shape: shape.raindrop,
+                shape: raindropShape.raindrop,
                 label: "raindrop",
             })
-            .setScale(0.8)
+            .setScale(0.2)
             .setStatic(true);
 
         // 바닥
