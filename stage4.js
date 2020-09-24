@@ -55,6 +55,13 @@ var GameScene = new Phaser.Class({
             "./assets/stage4/bubble-data.json"
         );
 
+        this.load.image("raindrop-bg", "./assets/raindrop-bg.png");
+        this.load.image("raindrop", "./assets/stage4/raindrop/raindrop.png");
+        this.load.image(
+            "main-raindrop",
+            "./assets/stage4/raindrop/mainRaindrop.png"
+        );
+
         this.load.json("shapes", "./assets/stage4/shapes.json");
     },
 
@@ -74,15 +81,189 @@ var GameScene = new Phaser.Class({
         this.add.image(2900, 1700, "bg2").setScale(1.5);
         this.add.image(3700, 1400, "bg3").setScale(1.5);
 
+        this.add.image(300, 1500, "bubbles", "bubble1.png");
+        this.add.image(1000, 1300, "bubbles", "bubble2.png");
+        this.add.image(1500, 1900, "bubbles", "bubble3.png");
+        this.add.image(800, 1100, "bubbles", "bubble1.png");
+        this.add.image(2000, 1200, "bubbles", "bubble2.png");
+        this.add.image(2500, 1400, "bubbles", "bubble3.png");
+        this.add.image(2800, 1800, "bubbles", "bubble1.png");
+        this.add.image(1800, 1900, "bubbles", "bubble2.png");
+        this.add.image(3000, 1700, "bubbles", "bubble3.png");
+        this.add.image(3500, 1300, "bubbles", "bubble1.png");
+        this.add.image(3800, 1100, "bubbles", "bubble2.png");
+        this.add.image(4000, 1200, "bubbles", "bubble2.png");
+        this.add.image(4300, 1300, "bubbles", "bubble2.png");
+        this.add.image(5000, 1400, "bubbles", "bubble2.png");
+        this.add.image(4900, 1500, "bubbles", "bubble2.png");
+
+        this.add.image(300, 500, "bubbles", "bubble1.png");
+        this.add.image(1000, 300, "bubbles", "bubble2.png");
+        this.add.image(1500, 900, "bubbles", "bubble3.png");
+        this.add.image(800, 100, "bubbles", "bubble1.png");
+        this.add.image(2000, 200, "bubbles", "bubble2.png");
+        this.add.image(2500, 400, "bubbles", "bubble3.png");
+        this.add.image(2800, 800, "bubbles", "bubble1.png");
+        this.add.image(1800, 900, "bubbles", "bubble2.png");
+        this.add.image(3000, 700, "bubbles", "bubble3.png");
+        this.add.image(3500, 300, "bubbles", "bubble1.png");
+        this.add.image(3800, 100, "bubbles", "bubble2.png");
+        this.add.image(4000, 200, "bubbles", "bubble2.png");
+        this.add.image(4300, 300, "bubbles", "bubble2.png");
+        this.add.image(5000, 400, "bubbles", "bubble2.png");
+        this.add.image(4900, 500, "bubbles", "bubble2.png");
+
         // 1층 패드
 
         // 성
         this.add.image(5200, 850, "castle");
 
-        this.matter.add.image(5800, 900, "gate").setScale(1.5).setStatic(true);
-        this.matter.add.image(5800, 1100, "pad3").setScale(1.5).setStatic(true);
+        this.add.image(5800, 1000, "raindrop-bg");
+        this.matter.add
+            .image(5800, 1000, "main-raindrop", null, {
+                shape: shape.mainRaindrop,
+                label: "main-raindrop",
+            })
+            .setStatic(true);
+        let gate = this.matter.add
+            .image(5800, 980, "gate", null, {
+                shape: shape.gate,
+                label: "gate",
+            })
+            .setScale(1.4)
+            .setStatic(true);
+        this.matter.add
+            .image(5800, 1150, "pad3", null, {
+                shape: shape.pad3,
+            })
+            .setScale(1.5)
+            .setStatic(true);
+
+        this.matter.add
+            .image(5500, 1050, "pad2", null, { shape: shape.pad2 })
+            .setStatic(0.9)
+            .setStatic(true);
+
+        this.matter.add
+            .image(5100, 930, "pad3", null, { shape: shape.pad3 })
+            .setScale(1.2)
+            .setStatic(true);
+        this.matter.add
+            .image(4800, 1050, "pad1", null, { shape: shape.pad1 })
+            .setScale(1.1)
+            .setStatic(true);
+        this.matter.add
+            .image(4600, 1150, "pad1", null, { shape: shape.pad1 })
+            .setScale(1.1)
+            .setStatic(true);
+        this.matter.add
+            .image(4400, 1250, "pad1", null, { shape: shape.pad1 })
+            .setScale(1.1)
+            .setStatic(true);
 
         // 2층 패드
+
+        this.matter.add
+            .image(4800, 800, "pad2", null, { shape: shape.pad2 })
+            .setStatic(true);
+
+        this.matter.add
+            .image(4500, 700, "pad1", null, { shape: shape.pad1 })
+            .setStatic(true);
+        this.matter.add
+            .image(4300, 600, "pad1", null, { shape: shape.pad1 })
+            .setStatic(true);
+        this.matter.add
+            .image(4000, 500, "pad3", null, { shape: shape.pad3 })
+            .setStatic(true);
+
+        this.matter.add
+            .image(3700, 600, "pad1", null, { shape: shape.pad1 })
+            .setStatic(true);
+
+        this.matter.add
+            .image(3400, 600, "pad3", null, { shape: shape.pad3 })
+            .setStatic(true);
+
+        this.add.image(3400, 500, "key-bg");
+        this.matter.add
+            .image(3400, 500, "key", null, {
+                shape: shape.key,
+                label: "key",
+            })
+            .setStatic(true);
+
+        this.matter.add
+            .image(1500, 1300, "raindrop", null, {
+                shape: shape.raindrop,
+                label: "raindrop",
+            })
+            .setScale(0.8)
+            .setStatic(true);
+        this.matter.add
+            .image(1650, 1300, "raindrop", null, {
+                shape: shape.raindrop,
+                label: "raindrop",
+            })
+            .setScale(0.8)
+            .setStatic(true);
+        this.matter.add
+            .image(1800, 1300, "raindrop", null, {
+                shape: shape.raindrop,
+                label: "raindrop",
+            })
+            .setScale(0.8)
+            .setStatic(true);
+        this.matter.add
+            .image(1950, 1200, "raindrop", null, {
+                shape: shape.raindrop,
+                label: "raindrop",
+            })
+            .setScale(0.8)
+            .setStatic(true);
+        this.matter.add
+            .image(2100, 1100, "raindrop", null, {
+                shape: shape.raindrop,
+                label: "raindrop",
+            })
+            .setScale(0.8)
+            .setStatic(true);
+        this.matter.add
+            .image(2250, 1050, "raindrop", null, {
+                shape: shape.raindrop,
+                label: "raindrop",
+            })
+            .setScale(0.8)
+            .setStatic(true);
+
+        this.matter.add
+            .image(4600, 1000, "raindrop", null, {
+                shape: shape.raindrop,
+                label: "raindrop",
+            })
+            .setScale(0.8)
+            .setStatic(true);
+        this.matter.add
+            .image(4700, 950, "raindrop", null, {
+                shape: shape.raindrop,
+                label: "raindrop",
+            })
+            .setScale(0.8)
+            .setStatic(true);
+        this.matter.add
+            .image(4800, 900, "raindrop", null, {
+                shape: shape.raindrop,
+                label: "raindrop",
+            })
+            .setScale(0.8)
+            .setStatic(true);
+        this.matter.add
+            .image(4900, 850, "raindrop", null, {
+                shape: shape.raindrop,
+                label: "raindrop",
+            })
+            .setScale(0.8)
+            .setStatic(true);
 
         // 바닥
         let ground = this.matter.add
@@ -93,7 +274,7 @@ var GameScene = new Phaser.Class({
             .setStatic(true);
 
         // 유저 설정
-        var player = this.matter.add.sprite(50, 400, "player-idle");
+        var player = this.matter.add.sprite(50, 1300, "player-idle");
         player.setBounce(0.15);
         player.setScale(0.4);
         this.cameras.main.startFollow(player, true, 0.05, 0.05);
@@ -135,6 +316,35 @@ var GameScene = new Phaser.Class({
         });
 
         player.anims.play("idle", true);
+
+        // 오브젝트 충돌 처리
+
+        this.matter.world.on("collisionstart", function (event, bodyA, bodyB) {
+            if (
+                bodyA.parent.label === "raindrop" ||
+                bodyB.parent.label === "raindrop"
+            ) {
+                const body =
+                    bodyA.parent.label === "raindrop"
+                        ? bodyA.parent
+                        : bodyB.parent;
+                body.gameObject.destroy();
+            } else if (
+                bodyA.parent.label === "key" ||
+                bodyB.parent.label === "key"
+            ) {
+                const body =
+                    bodyA.parent.label === "key" ? bodyA.parent : bodyB.parent;
+                body.gameObject.destroy();
+                gate.destroy();
+            } else if (
+                bodyA.parent.label === "main-raindrop" ||
+                bodyB.parent.label === "main-raindrop"
+            ) {
+                location.href = "./stage5.html";
+                // console.log("clear!");
+            }
+        });
 
         // 버튼
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -197,14 +407,14 @@ var GameScene = new Phaser.Class({
             }
             player.anims.play("jump", true);
         } else if (cursors.left.isDown) {
-            player.setVelocityX(-30);
+            player.setVelocityX(-6);
 
             player.flipX = true;
             if (!cursors.up.isDown) {
                 player.anims.play("move", true);
             }
         } else if (cursors.right.isDown) {
-            player.setVelocityX(30);
+            player.setVelocityX(6);
             player.flipX = false;
             if (!cursors.up.isDown) {
                 player.anims.play("move", true);
