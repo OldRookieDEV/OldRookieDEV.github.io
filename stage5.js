@@ -173,7 +173,7 @@ var GameScene = new Phaser.Class({
             .setStatic(true);
 
         let wave1 = this.matter.add
-            .image(1700, 2200, "wave1", null, {
+            .image(1700, 2300, "wave1", null, {
                 shape: shape.wave1,
             })
             .setScale(2)
@@ -314,6 +314,12 @@ var GameScene = new Phaser.Class({
             ) {
                 location.href = "./stage_ending.html";
                 // console.log("clear!");
+            } else {
+                if (bodyA.parent.label === "wave1") {
+                    player.isSwum = true;
+                } else {
+                    player.isSwum = false;
+                }
             }
         });
 
@@ -350,6 +356,15 @@ var GameScene = new Phaser.Class({
             frames: this.anims.generateFrameNumbers("player-move", {
                 start: 0,
                 end: 17,
+            }),
+            frameRate: 20,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: "swim",
+            frames: this.anims.generateFrameNumbers("player-swim", {
+                start: 0,
+                end: 3,
             }),
             frameRate: 20,
             repeat: -1,
@@ -422,13 +437,21 @@ var GameScene = new Phaser.Class({
 
             player.flipX = true;
             if (!cursors.up.isDown) {
-                player.anims.play("move", true);
+                if (player.isSwum) {
+                    player.anims.play("swim", true);
+                } else {
+                    player.anims.play("move", true);
+                }
             }
         } else if (cursors.right.isDown) {
             player.setVelocityX(5);
             player.flipX = false;
             if (!cursors.up.isDown) {
-                player.anims.play("move", true);
+                if (player.isSwum) {
+                    player.anims.play("swim", true);
+                } else {
+                    player.anims.play("move", true);
+                }
             }
         } else {
             player.setVelocityX(0);
