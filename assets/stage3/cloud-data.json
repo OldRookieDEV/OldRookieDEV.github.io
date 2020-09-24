@@ -1,0 +1,83 @@
+{
+	"textures": [
+		{
+			"image": "cloud-texture.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 671,
+				"h": 245
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "cloud1.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 669,
+						"h": 156
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 669,
+						"h": 156
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 669,
+						"h": 156
+					}
+				},
+				{
+					"filename": "cloud3.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 372,
+						"h": 85
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 372,
+						"h": 85
+					},
+					"frame": {
+						"x": 1,
+						"y": 159,
+						"w": 372,
+						"h": 85
+					}
+				},
+				{
+					"filename": "cloud4.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 256,
+						"h": 80
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 256,
+						"h": 80
+					},
+					"frame": {
+						"x": 375,
+						"y": 159,
+						"w": 256,
+						"h": 80
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:415f32a10d5ce9cd9785b0787d3ba1e1:4ac0527578ce8a698481bc205f0e741d:32eefb8b72c9fed72f49e4246e5afaac$"
+	}
+}

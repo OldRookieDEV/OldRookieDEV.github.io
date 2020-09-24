@@ -1,0 +1,248 @@
+var GameScene = new Phaser.Class({
+    Extends: Phaser.Scene,
+
+    initialize: function GameScene() {
+        Phaser.Scene.call(this, { key: "gameScene", active: true });
+
+        this.player = null;
+        this.cursors = null;
+        this.score = 0;
+        this.scoreText = null;
+    },
+
+    preload: function () {
+        this.load.spritesheet("player-idle", "./assets/stage1/user-idle.png", {
+            frameWidth: 189,
+            frameHeight: 353,
+        });
+        this.load.spritesheet("player-jump", "./assets/stage1/user-jump.png", {
+            frameWidth: 249,
+            frameHeight: 352,
+        });
+        this.load.spritesheet("player-move", "./assets/stage1/user-move.png", {
+            frameWidth: 221.5,
+            frameHeight: 349,
+        });
+        this.load.image("arrow-left", "./assets/arrow-left.png");
+        this.load.image("arrow-right", "./assets/arrow-right.png");
+        this.load.image("circle", "./assets/circle.png");
+
+        this.load.image("sky", "./assets/stage4/sky.png");
+
+        this.load.image("gate", "./assets/stage4/gate.png");
+
+        this.load.image("bg1", "./assets/stage4/bg1.png");
+        this.load.image("bg2", "./assets/stage4/bg2.png");
+        this.load.image("bg3", "./assets/stage4/bg3.png");
+
+        this.load.image("castle", "./assets/stage4/castle.png");
+
+        this.load.image("statue1", "./assets/stage4/statue1.png");
+        this.load.image("statue2", "./assets/stage4/statue2.png");
+
+        this.load.image("pad1", "./assets/stage4/pad1.png");
+        this.load.image("pad2", "./assets/stage4/pad2.png");
+        this.load.image("pad3", "./assets/stage4/pad3.png");
+
+        this.load.image("key", "./assets/key.png");
+        this.load.image("key-bg", "./assets/stage4/key/key-bg.png");
+
+        this.load.image("ground", "./assets/stage4/ground.png");
+
+        this.load.atlas(
+            "bubbles",
+            "./assets/stage4/bubble-texture.png",
+            "./assets/stage4/bubble-data.json"
+        );
+
+        this.load.json("shapes", "./assets/stage4/shapes.json");
+    },
+
+    create: function () {
+        // 월드 , 카메라 설정
+        this.cameras.main.setBounds(0, -100, 6650, 2000);
+        this.matter.world.setBounds(0, -100, 6650, 2000);
+        this.cameras.main.setBackgroundColor("#fff");
+
+        let shape = this.cache.json.get("shapes");
+
+        // 하늘
+        this.add.image(2500, 0, "sky").setScale(2);
+
+        // 배경
+        this.add.image(1200, 1400, "bg1").setScale(1.5);
+        this.add.image(2900, 1700, "bg2").setScale(1.5);
+        this.add.image(3700, 1400, "bg3").setScale(1.5);
+
+        // 1층 패드
+
+        // 성
+        this.add.image(5200, 850, "castle");
+
+        this.matter.add.image(5800, 900, "gate").setScale(1.5).setStatic(true);
+        this.matter.add.image(5800, 1100, "pad3").setScale(1.5).setStatic(true);
+
+        // 2층 패드
+
+        // 바닥
+        let ground = this.matter.add
+            .sprite(3600, 1800, "ground", null, {
+                shape: shape.ground,
+            })
+            .setScale(1.5)
+            .setStatic(true);
+
+        // 유저 설정
+        var player = this.matter.add.sprite(50, 400, "player-idle");
+        player.setBounce(0.15);
+        player.setScale(0.4);
+        this.cameras.main.startFollow(player, true, 0.05, 0.05);
+        this.player = player;
+
+        // 동상
+        this.add.image(2200, 1400, "statue1").setScale(1.3);
+        this.add.image(3200, 1300, "statue2").setScale(1.5);
+
+        // 유저 애니메이션
+        this.anims.create({
+            key: "idle",
+            frames: this.anims.generateFrameNumbers("player-idle", {
+                start: 0,
+                end: 3,
+            }),
+            frameRate: 10,
+            repeat: -1,
+        });
+
+        this.anims.create({
+            key: "jump",
+            frames: this.anims.generateFrameNumbers("player-jump", {
+                start: 0,
+                end: 20,
+            }),
+            frameRate: 20,
+            repeat: 0,
+        });
+
+        this.anims.create({
+            key: "move",
+            frames: this.anims.generateFrameNumbers("player-move", {
+                start: 0,
+                end: 17,
+            }),
+            frameRate: 20,
+            repeat: -1,
+        });
+
+        player.anims.play("idle", true);
+
+        // 버튼
+        this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.arrowLeft = this.add
+            .image(80, 510, "arrow-left")
+            .setScale(0.25)
+            .setInteractive();
+
+        this.arrowLeft.setScrollFactor(0);
+        this.arrowRight = this.add
+            .image(250, 510, "arrow-right")
+            .setScale(0.25)
+            .setInteractive();
+        this.arrowRight.setScrollFactor(0);
+
+        this.arrowLeft.on("pointerdown", () => {
+            this.cursors.left.isDown = true;
+        });
+        this.arrowLeft.on("pointerup", () => {
+            this.cursors.left.isDown = false;
+        });
+
+        this.arrowRight.on("pointerdown", () => {
+            this.cursors.right.isDown = true;
+        });
+        this.arrowRight.on("pointerup", () => {
+            this.cursors.right.isDown = false;
+        });
+
+        let jumpButton = this.add
+            .image(1248 - 100, 510, "circle")
+            .setScale(0.8)
+            .setInteractive();
+        jumpButton.on("pointerdown", () => {
+            if (
+                this.player.body.velocity.y < 15 &&
+                this.player.body.velocity.y > -15
+            ) {
+                this.cursors.up.isDown = true;
+                this.player.isJump = true;
+            }
+        });
+        jumpButton.on("pointerup", () => {
+            this.cursors.up.isDown = false;
+        });
+        jumpButton.setScrollFactor(0);
+    },
+
+    update: function () {
+        var cursors = this.cursors;
+        var player = this.player;
+
+        player.angle = 0;
+
+        if (cursors.up.isDown) {
+            if (player.isJump) {
+                player.setVelocityY(-15);
+                player.isJump = false;
+            }
+            player.anims.play("jump", true);
+        } else if (cursors.left.isDown) {
+            player.setVelocityX(-30);
+
+            player.flipX = true;
+            if (!cursors.up.isDown) {
+                player.anims.play("move", true);
+            }
+        } else if (cursors.right.isDown) {
+            player.setVelocityX(30);
+            player.flipX = false;
+            if (!cursors.up.isDown) {
+                player.anims.play("move", true);
+            }
+        } else {
+            player.setVelocityX(0);
+            if (player.anims.currentAnim.key !== "idle") {
+                if (player.isJump) {
+                    player.anims.play("jump", true);
+                } else {
+                    player.anims.play("idle", true);
+                }
+            }
+        }
+    },
+});
+
+var config = {
+    type: Phaser.AUTO,
+    scale: {
+        mode: Phaser.Scale.FIT,
+        parent: "raindrop",
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: 1300,
+        height: 630,
+    },
+    // activePointers: 2,
+    input: {
+        activePointers: 3,
+    },
+    physics: {
+        default: "matter",
+        matter: {
+            gravity: { y: 1.5 },
+            debug: false,
+        },
+    },
+    scene: GameScene,
+};
+
+var game = new Phaser.Game(config);
