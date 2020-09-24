@@ -10,6 +10,9 @@
             body {
                 padding: 0;
                 margin: 0;
+                /* width: 100%; */
+                /* height: 100%; */
+                /* overflow: hidden; */
             }
 
             .background {
@@ -130,6 +133,12 @@
         document.addEventListener("DOMContentLoaded", () => {
             colorChange();
             window.setInterval(colorChange, 5000);
+
+            // window.setTimeout(() => {
+            //     const a = document.querySelector("audio");
+            //     a.click();
+            //     a.play();
+            // }, 1500);
         });
     </script>
 </html>

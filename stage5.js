@@ -79,6 +79,8 @@ var GameScene = new Phaser.Class({
 
         // shapes
         this.load.json("shapes", "./assets/stage5/shapes.json");
+
+        this.load.audio("bgm", "./assets/stage_comm/bgm/stage5.mp3");
     },
 
     create: function () {
@@ -418,6 +420,11 @@ var GameScene = new Phaser.Class({
             this.cursors.up.isDown = false;
         });
         jumpButton.setScrollFactor(0);
+
+        let bgm = this.sound.add("bgm");
+        window.setTimeout(() => {
+            bgm.play();
+        }, 800);
     },
 
     update: function () {

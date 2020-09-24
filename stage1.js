@@ -8,7 +8,6 @@ var GameScene = new Phaser.Class({
         this.cursors = null;
         this.score = 0;
         this.scoreText = null;
-        // this.cameras.main.setBackgroundColor("#fff");
     },
 
     preload: function () {
@@ -62,10 +61,17 @@ var GameScene = new Phaser.Class({
         this.load.json("drop-shape", "./assets/stage_comm/raindrop-shape.json");
         this.load.image("gate", "./assets/stage1/gate.png");
         this.load.image("raindrop-bg", "./assets/raindrop-bg.png");
+        this.load.audio("bgm", "./assets/stage1/bgm_stage1.mp3");
     },
 
     create: function () {
         this.cameras.main.setBackgroundColor("#fff");
+
+        let bgm = this.sound.add("bgm");
+        window.setTimeout(() => {
+            bgm.play();
+        }, 800);
+
         this.add.image(0, 0, "sky").setScale(2);
         this.add.image(800, 600, "bushes1").setScale(1);
         this.add.image(2250, 650, "bushes3").setScale(1);
@@ -370,6 +376,9 @@ var config = {
         },
     },
     backgroundColor: "#fff",
+    audio: {
+        disableWebAudio: false,
+    },
     scene: GameScene,
 };
 
