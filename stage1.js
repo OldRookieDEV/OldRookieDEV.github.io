@@ -65,6 +65,10 @@ var GameScene = new Phaser.Class({
     },
 
     create: function () {
+        let bgWhite = this.add.graphics();
+        bgWhite.fillStyle(0xffffff, 1);
+        bgWhite.fillRect(0, 0, 3000, 2000);
+        bgWhite.setScrollFactor(0);
         this.cameras.main.setBackgroundColor("#fff");
 
         let bgm = this.sound.add("bgm");

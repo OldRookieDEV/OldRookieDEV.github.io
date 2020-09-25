@@ -84,6 +84,10 @@ var GameScene = new Phaser.Class({
     },
 
     create: function () {
+        let bgWhite = this.add.graphics();
+        bgWhite.fillStyle(0xffffff, 1);
+        bgWhite.fillRect(0, 0, 3000, 2000);
+        bgWhite.setScrollFactor(0);
         // 월드 , 카메라 설정
         this.cameras.main.setBounds(0, -100, 6650, 2000);
         this.matter.world.setBounds(0, -100, 6650, 2000);
