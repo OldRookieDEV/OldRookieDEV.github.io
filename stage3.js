@@ -379,7 +379,7 @@ var GameScene = new Phaser.Class({
 });
 
 var config = {
-    type: Phaser.AUTO,
+    type: Phaser.CANVAS,
     scale: {
         mode: Phaser.Scale.FIT,
         parent: "raindrop",
